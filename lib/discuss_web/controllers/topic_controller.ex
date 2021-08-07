@@ -1,19 +1,27 @@
 defmodule DiscussWeb.TopicController do
   use DiscussWeb, :controller
 
-  alias Discuss.Topic
+  alias Discuss.{Topic, Repo}
 
-  def new(conn, params) do
-    IO.puts("It starts here")
-    IO.inspect(conn)
-    IO.puts("Params")
-    IO.inspect(params)
-    IO.puts("Ends here")
+  def index(conn, _params) do
 
+  end
+
+  def new(conn, _params) do
     struct = %Topic{} # or Discuss.Topic, without the alias
     params = %{}
     changeset = Topic.changeset(struct, params)
 
     render conn, "new.html", changeset: changeset
+  end
+
+  def create(conn, params) do
+    %{"topic" => topic} = params
+    changeset = Topic.changeset(%Topic{}, topic)
+
+    case Repo.insert(changeset) do
+      {:ok, post} -> IO.inspect(post)
+      {:error, changeset} -> render conn, "new.html", changeset: changeset
+    end
   end
 end

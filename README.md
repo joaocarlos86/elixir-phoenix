@@ -18,3 +18,12 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Docs: https://hexdocs.pm/phoenix
   * Forum: https://elixirforum.com/c/phoenix-forum
   * Source: https://github.com/phoenixframework/phoenix
+
+## Helpful commands:
+
+  * Generate model: `mix phx.gen.schema Topic topics --no-migration`
+  * iex: `iex -S mix`
+  * iex + server: `iex -S mix phx.server`
+  * Create database migration: `mix ecto.gen.migration add_topics`
+  * Run database migration: `mix ecto.migrate`
+  * List all routes: `mix phx.routes`
