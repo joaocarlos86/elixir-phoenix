@@ -3,6 +3,9 @@ services:
   elixir:
     image: "elixir-npm"
     tty: "true"
+    environment:
+      - "GITHUB_CLIENT_SECRET=xxx"
+      - "GITHUB_CLIENT_ID=xxx"
     ports:
       - "8080:8080"
       - "8443:8443"
