@@ -13,6 +13,12 @@ defmodule DiscussWeb.TopicController do
     render conn, "index.html", topics: topics
   end
 
+  def show(conn, params) do
+    %{"id" => topic_id} = params
+    topic = Repo.get!(Topic, topic_id)
+    render conn, "show.html", topic: topic
+  end
+
   def new(conn, _params) do
     struct = %Topic{} # or Discuss.Topic, without the alias
     params = %{}
