@@ -5,7 +5,8 @@ defmodule DiscussWeb.AuthController do
 
   alias Discuss.{User, Repo}
 
-  def callback(conn, params) do
+  @spec callback(Plug.Conn.t(), any) :: Plug.Conn.t()
+  def callback(conn, _params) do
     %{assigns: %{ueberauth_auth: auth}} = conn
     user_params = %{token: auth.credentials.token, email: auth.info.email, provider: "github"}
     changeset = User.changeset(%User{}, user_params)
