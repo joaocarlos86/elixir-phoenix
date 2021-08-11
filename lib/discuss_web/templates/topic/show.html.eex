@@ -1,10 +1,12 @@
-<h1>Edit form</h1>
+<h5><%= @topic.title %></h5>
 
-<%= form_for @topic, Routes.topic_path(@conn, :update, @topic), fn f -> %>
-    <div class = "form-group">
-        <%= text_input f, :title, placeholder: "Title", class: "form-control" %>
-        <%= error_tag f, :title %>
-    </div>
+<div class="input-field">
+    <textarea class="materialize-textarea"></textarea>
+    <button class="btn">Add Comment</button>
+</div>
 
-    <%= submit "Save Topic", class: "btn btn-primary" %>
-<% end %>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        window.createSocket(<%= @topic.id %>)
+    })
+</script>
