@@ -7,9 +7,11 @@ defmodule DiscussWeb.CommentsChannel do
     "comments:" <> topic_id = channel_name
     topic_id = String.to_integer(topic_id)
 
-    topic = Repo.get(Topic, topic_id)
+    topic = Topic
+      |> Repo.get(topic_id)
+      |> Repo.preload(:comments)
 
-    {:ok, %{}, assign(socket, :topic, topic)}
+    {:ok, %{comments: topic.comments}, assign(socket, :topic, topic)}
   end
 
   def handle_in(_name, message, socket) do
