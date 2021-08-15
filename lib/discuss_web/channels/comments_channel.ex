@@ -9,7 +9,7 @@ defmodule DiscussWeb.CommentsChannel do
 
     topic = Topic
       |> Repo.get(topic_id)
-      |> Repo.preload(:comments)
+      |> Repo.preload(comments: [:user])
 
     {:ok, %{comments: topic.comments}, assign(socket, :topic, topic)}
   end
@@ -25,6 +25,9 @@ defmodule DiscussWeb.CommentsChannel do
 
     case Repo.insert(changeset) do
       {:ok, comment} ->
+        comment = comment
+        |> Repo.preload(:user)
+
         broadcast!(socket, "comments:#{socket.assigns.topic.id}:new", %{comment: comment})
         {:reply, :ok, socket}
       {:error, _reason} ->
